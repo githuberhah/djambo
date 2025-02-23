@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Scraper</title>
+</head>
+<body>
+    <h1>Book Scraper</h1>
+    <button id="fetchBooks">Fetch Books</button>
+    <div id="books"></div>
+
+    <script>
+        document.getElementById('fetchBooks').addEventListener('click', async () => {
+            const response = await fetch('/api/books');
+            const books = await response.json();
+            const booksDiv = document.getElementById('books');
+            booksDiv.innerHTML = books.map(book => `
+                <div>
+                    <h3>${book.title}</h3>
+                    <p>Price: ${book.price}</p>
+                    <p>Rating: ${book.rating}</p>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
